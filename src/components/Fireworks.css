@@ -1,0 +1,203 @@
+/* Shared victory celebration and animation keyframes. */
+
+.fireworks {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.firework {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.firework-spot-1 {
+  top: calc(50% - 180px);
+  left: calc(50% - 235px);
+}
+
+.firework-spot-2 {
+  top: calc(50% - 175px);
+  left: calc(50% + 235px);
+}
+
+.firework-spot-3 {
+  top: calc(50% + 35px);
+  left: calc(50% - 250px);
+}
+
+.firework-spot-4 {
+  top: calc(50% + 55px);
+  left: calc(50% + 245px);
+}
+
+.firework-spot-5 {
+  top: calc(50% + 220px);
+  left: calc(50% - 180px);
+}
+
+.firework-spot-6 {
+  top: calc(50% + 210px);
+  left: calc(50% + 190px);
+}
+
+.firework-spot-7 {
+  top: calc(50% - 255px);
+  left: 50%;
+}
+
+.firework-1 {
+  color: #ffd377;
+}
+
+.firework-2 {
+  color: #ff8965;
+}
+
+.firework-3 {
+  color: #aee2bd;
+}
+
+.firework-4 {
+  color: #a7d8f1;
+}
+
+.firework-5 {
+  color: #cab4f5;
+}
+
+.firework-6 {
+  color: #f4a9d4;
+}
+
+.firework-7 {
+  color: #81dfd5;
+}
+
+.firework-launch {
+  position: absolute;
+  top: -9px;
+  left: -2px;
+  width: 4px;
+  height: 18px;
+  border-radius: 4px;
+  background: currentColor;
+  box-shadow: 0 0 12px currentColor, 0 15px 18px currentColor;
+  opacity: 0;
+  animation: firework-launch 6s ease-out var(--burst-delay) infinite both;
+}
+
+.firework-particle {
+  position: absolute;
+  width: 6px;
+  height: 15px;
+  border-radius: 6px;
+  background: currentColor;
+  box-shadow: 0 0 8px currentColor;
+  opacity: 0;
+  animation: firework-pop 6s ease-out var(--burst-delay) infinite both;
+}
+
+.firework-particle:nth-child(2n) {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.intro-firework .firework-particle {
+  color: #ffd377;
+}
+
+.intro-firework .firework-particle:nth-child(3n) {
+  color: #ff8965;
+}
+
+.intro-firework .firework-particle:nth-child(3n + 2) {
+  color: #b9e2b1;
+}
+
+.intro-firework .firework-particle:nth-child(4n) {
+  color: #a7d8f1;
+}
+
+.intro-firework .firework-particle {
+  animation: intro-firework-pop 1.5s ease-out var(--burst-delay) both;
+}
+
+@keyframes intro-firework-pop {
+  0% {
+    opacity: 0;
+    transform: rotate(var(--angle)) translateY(0) scale(0.2);
+  }
+  20% {
+    opacity: 1;
+    transform: rotate(var(--angle)) translateY(-22px) scale(1.1);
+  }
+  70% {
+    opacity: 0.95;
+    transform: rotate(var(--angle)) translateY(-78px) scale(0.85);
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(var(--angle)) translateY(-100px) scale(0.45);
+  }
+}
+
+@keyframes firework-launch {
+  0% {
+    opacity: 0;
+    transform: translateY(170px);
+  }
+  2% {
+    opacity: 1;
+  }
+  12% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  14%,
+  100% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+}
+
+@keyframes firework-pop {
+  0%,
+  12% {
+    opacity: 0;
+    transform: rotate(var(--angle)) translateY(0) scale(0.2);
+  }
+  16% {
+    opacity: 1;
+    transform: rotate(var(--angle)) translateY(-22px) scale(1.1);
+  }
+  23% {
+    opacity: 0.95;
+    transform: rotate(var(--angle)) translateY(-78px) scale(0.85);
+  }
+  28%,
+  100% {
+    opacity: 0;
+    transform: rotate(var(--angle)) translateY(-100px) scale(0.45);
+  }
+}
+
+@media (max-width: 620px) {
+  .firework-spot-1,
+  .firework-spot-3 {
+      left: 8%;
+    }
+  .firework-spot-2,
+  .firework-spot-4 {
+      left: 92%;
+    }
+  .firework-spot-5 {
+      left: 16%;
+    }
+  .firework-spot-6 {
+      left: 84%;
+    }
+}

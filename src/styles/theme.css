@@ -1,0 +1,51 @@
+/* Theme tokens, shared label typography, and reduced-motion preferences. */
+
+.app-shell {
+  --ink: #222925;
+  --muted: #7b827d;
+  --line: #e4e7df;
+  --surface: #fff;
+  --ground: #f8f8f4;
+  --soft: #f2f3ed;
+  --accent: #f16b4c;
+  --green: #46735e;
+  --board: #edf1e9;
+  min-height: 100vh;
+  background: var(--ground);
+  color: var(--ink);
+}
+
+.app-shell.dark {
+  --ink: #eef3ed;
+  --muted: #aab8af;
+  --line: #36433c;
+  --surface: #25332b;
+  --ground: #1b2821;
+  --soft: #2c3b32;
+  --accent: #ff8c68;
+  --green: #a5c9aa;
+  --board: #314238;
+}
+
+.header-edition,
+.card-kicker,
+.stat-label,
+.board-meta,
+.aside-kicker,
+.how-strip,
+.mode-button,
+footer {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  font-weight: 800;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *:before,
+  *:after {
+      scroll-behavior: auto !important;
+      transition: none !important;
+      animation: none !important;
+    }
+}

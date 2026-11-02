@@ -1,0 +1,497 @@
+.merge-stats .stat {
+  text-align: center;
+}
+
+.merge-board-section {
+  container-type: inline-size;
+  margin: 0 29px;
+  padding-bottom: 24px;
+}
+
+.merge-board-and-history {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: start;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.merge-board-and-history > .merge-board {
+  grid-column: 2;
+}
+
+.merge-board-and-history > .merge-history {
+  grid-column: 3;
+  width: 180px;
+}
+
+.merge-best-stat {
+  position: relative;
+}
+
+.merge-teleport-banner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: min(360px, calc(300% - 16px));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--green);
+  border-radius: 8px;
+  background: var(--soft);
+  color: var(--ink);
+  text-align: left;
+  box-shadow: 0 4px 12px #0001;
+}
+
+.merge-teleport-banner strong {
+  color: var(--green);
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+.merge-teleport-banner p {
+  margin: 4px 0 0;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.merge-teleport-banner button {
+  flex-shrink: 0;
+  padding: 7px 11px;
+  border: 1px solid var(--green);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.merge-teleport-banner button:hover {
+  background: var(--green);
+  color: var(--surface);
+}
+
+.merge-rotate-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.merge-rotate-options button {
+  padding: 5px 8px;
+  font-size: 11px;
+}
+
+.merge-board {
+  --tile-size: clamp(60px, 6.2vw, 86px);
+  --grid-gap: 8px;
+  --board-padding: 8px;
+  position: relative;
+  display: grid;
+  gap: var(--grid-gap);
+  width: fit-content;
+  margin: 0 auto;
+  padding: var(--board-padding);
+  border-radius: 10px;
+  background: #dbe4d8;
+  touch-action: none;
+  user-select: none;
+}
+
+.dark .merge-board {
+  background: #455849;
+}
+
+.merge-row {
+  display: grid;
+  grid-template-columns: repeat(4, var(--tile-size));
+  gap: var(--grid-gap);
+}
+
+.merge-sliding-tiles {
+  position: absolute;
+  inset: var(--board-padding);
+  display: grid;
+  grid-template-columns: repeat(4, var(--tile-size));
+  grid-template-rows: repeat(4, var(--tile-size));
+  gap: var(--grid-gap);
+  pointer-events: none;
+}
+
+.merge-sliding-tiles .merge-tile {
+  animation: merge-slide var(--slide-duration) cubic-bezier(0.34, 1.3, 0.64, 1) both;
+}
+
+.merge-tile {
+  width: var(--tile-size);
+  height: var(--tile-size);
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  background: #edf2e9;
+  color: #fff;
+  font:
+    800 calc(var(--tile-size) * 0.37)/1 'Space Grotesk',
+    sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
+.dark .merge-tile.value-0 {
+  background: #526654;
+}
+
+.merge-tile.value-2 {
+  background: #fff7e8;
+  color: #344438;
+}
+.merge-tile.value-4 {
+  background: #f9ebd1;
+  color: #344438;
+}
+.merge-tile.value-8 {
+  background: #f4bc83;
+}
+.merge-tile.value-16 {
+  background: #f5a36d;
+}
+.merge-tile.value-32 {
+  background: #f48966;
+}
+.merge-tile.value-64 {
+  background: #ed7156;
+}
+.merge-tile.value-128 {
+  background: #e7c873;
+  font-size: calc(var(--tile-size) * 0.31);
+}
+.merge-tile.value-256 {
+  background: #dfb95e;
+  font-size: calc(var(--tile-size) * 0.31);
+}
+.merge-tile.value-512 {
+  background: #d8ab4d;
+  font-size: calc(var(--tile-size) * 0.31);
+}
+.merge-tile.value-1024 {
+  background: #cc9d3d;
+  font-size: calc(var(--tile-size) * 0.26);
+}
+.merge-tile.value-2048 {
+  background: #c88b30;
+  font-size: calc(var(--tile-size) * 0.26);
+  box-shadow: 0 0 18px #d4a34c88;
+}
+.merge-tile.value-4096,
+.merge-tile.value-8192 {
+  background: #627caa;
+  font-size: calc(var(--tile-size) * 0.26);
+}
+
+.merge-tile.spawned {
+  animation: merge-spawn 0.18s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.merge-tile.merged {
+  animation: merge-pulse 0.18s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.merge-tile.teleported {
+  animation: merge-teleport 0.32s ease-out both;
+}
+
+.merge-tile.teleport-selected {
+  box-shadow: inset 0 0 0 3px var(--green);
+}
+
+.merge-tile.teleport-destination {
+  outline: 2px dashed var(--green);
+  outline-offset: -4px;
+}
+
+.merge-teleport-cell {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-variant-numeric: inherit;
+  cursor: pointer;
+}
+
+.merge-teleport-cell:disabled {
+  cursor: default;
+}
+
+.merge-teleport-cell:focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 2px;
+}
+
+.merge-powerup {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 16px auto 0;
+}
+
+.merge-teleport-button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 38px;
+  padding: 8px 11px;
+  border: 1px solid var(--green);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.merge-teleport-button span {
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
+.merge-teleport-button.active {
+  background: var(--green);
+  color: var(--surface);
+}
+
+.merge-teleport-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.merge-powerup p {
+  flex-basis: 100%;
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.merge-instruction {
+  margin: 16px 0 14px;
+  color: var(--muted);
+  text-align: center;
+  font-size: 12px;
+}
+
+.merge-history {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+.merge-history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.merge-history-header h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 12px;
+}
+
+.merge-history-header button {
+  min-height: 30px;
+  padding: 5px 8px;
+  font-size: 11px;
+}
+
+.merge-history-hint,
+.merge-history-empty {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.merge-history-hint {
+  margin: 8px 0 0;
+}
+
+.merge-history-empty {
+  margin: 16px 0 0;
+}
+
+.merge-history-list {
+  margin: 8px 0 0;
+  padding-left: 22px;
+  color: var(--ink);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.merge-history-list li {
+  padding: 4px 0 4px 2px;
+  border-bottom: 1px solid var(--line);
+}
+
+.merge-history-list li:last-child {
+  border-bottom: 0;
+}
+
+.merge-history-list li::marker {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+@container (max-width: 776px) {
+  .merge-board-and-history {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .merge-board-and-history > .merge-board,
+  .merge-board-and-history > .merge-history {
+    grid-column: 1;
+  }
+
+  .merge-board-and-history > .merge-history {
+    width: 100%;
+    max-width: 384px;
+    justify-self: center;
+  }
+}
+
+.merge-controls {
+  display: grid;
+  grid-template-columns: repeat(3, 47px);
+  gap: 6px;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.merge-controls button {
+  width: 47px;
+  height: 39px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--soft);
+  color: var(--ink);
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.merge-controls button:hover {
+  border-color: var(--green);
+  background: var(--board);
+}
+
+.merge-controls .up {
+  grid-column: 2;
+}
+.merge-controls .left {
+  grid-column: 1;
+  grid-row: 2;
+}
+.merge-controls .down {
+  grid-column: 2;
+  grid-row: 2;
+}
+.merge-controls .right {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+.merge-card-bottom {
+  border-top: 1px solid var(--line);
+  padding: 14px 29px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.merge-card-bottom > span {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.merge-game .result-emblem {
+  font:
+    800 16px 'Space Grotesk',
+    sans-serif;
+}
+
+@keyframes merge-slide {
+  to {
+    transform: translate(var(--slide-x), var(--slide-y)) scale(var(--slide-scale));
+  }
+}
+
+@keyframes merge-spawn {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes merge-pulse {
+  from {
+    transform: scale(0.8);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes merge-teleport {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 620px) {
+  .merge-board-section {
+    margin: 0 14px;
+    padding-bottom: 18px;
+  }
+  .merge-board {
+    --tile-size: min(17.5vw, 69px);
+    --grid-gap: 6px;
+    --board-padding: 6px;
+  }
+  .merge-powerup {
+    gap: 7px;
+  }
+  .merge-powerup p {
+    max-width: none;
+    text-align: center;
+  }
+  .merge-card-bottom {
+    padding: 13px 18px;
+  }
+  .merge-card-bottom > span {
+    display: none;
+  }
+}

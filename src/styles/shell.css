@@ -1,0 +1,174 @@
+/* Site header, game introductions, and footer. */
+
+.site-header {
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 max(5vw, 24px);
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.07em;
+  line-height: 1;
+}
+
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: white;
+  display: grid;
+  place-items: center;
+}
+
+.brand-light {
+  font-weight: 400;
+}
+
+.brand small {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.22em;
+  font-weight: 800;
+  margin-top: 5px;
+  color: var(--muted);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.header-edition {
+  color: var(--muted);
+}
+
+.icon-button {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink);
+  display: grid;
+  place-items: center;
+}
+
+.icon-button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+main {
+  max-width: 1260px;
+  padding: 0 32px;
+  margin: auto;
+}
+
+.intro {
+  text-align: center;
+  padding: 55px 0 46px;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--green);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.23em;
+}
+
+.eyebrow-line {
+  width: 18px;
+  height: 1px;
+  background: var(--green);
+}
+
+.intro h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(46px, 7vw, 82px);
+  line-height: 1;
+  letter-spacing: -0.075em;
+  margin: 17px 0 13px;
+  font-weight: 700;
+}
+
+.title-dot {
+  color: var(--accent);
+}
+
+.intro p {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 0;
+}
+
+footer {
+  border-top: 1px solid var(--line);
+  padding: 25px max(5vw, 24px);
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 9px;
+}
+
+.footer-star {
+  color: var(--accent);
+  font-size: 14px;
+  padding: 0 3px;
+}
+
+@media (max-width: 620px) {
+  .site-header {
+      height: 64px;
+      padding: 0 18px;
+    }
+  .header-edition {
+      display: none;
+    }
+  main {
+      padding: 0 14px;
+    }
+  .intro {
+      padding: 39px 0 33px;
+    }
+  .eyebrow {
+      min-height: 28px;
+      line-height: 14px;
+    }
+  .intro h1 {
+      font-size: clamp(31px, 8.4vw, 43px);
+      margin: 16px 0 12px;
+    }
+  .intro p {
+      font-size: 13px;
+      min-height: 3em;
+      max-width: 280px;
+      margin: auto;
+    }
+  footer {
+      margin-top: 38px;
+      padding: 22px 18px;
+      font-size: 8px;
+    }
+  footer span:last-child {
+      display: none;
+    }
+}

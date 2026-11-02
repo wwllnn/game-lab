@@ -1,0 +1,55 @@
+/* Game collection navigation. */
+
+.game-list {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  padding: 21px 19px 19px;
+}
+
+.sidebar .game-list h3 {
+  margin: 8px 0 15px;
+  font-size: 21px;
+}
+
+.game-list-items {
+  display: grid;
+  gap: 7px;
+}
+
+.sidebar .game-list button {
+  display: grid;
+  grid-template-columns: 24px 1fr 18px;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  margin: 0;
+  padding: 12px 10px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--ink);
+  text-align: left;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.sidebar .game-list button:hover {
+  border-color: var(--green);
+  background: var(--soft);
+}
+
+.sidebar .game-list button.active {
+  border-color: var(--green);
+  background: var(--soft);
+}
+
+.game-list-number {
+  color: var(--accent);
+  font-size: 10px;
+}
+
+.game-list-arrow {
+  justify-self: end;
+  color: var(--green);
+}

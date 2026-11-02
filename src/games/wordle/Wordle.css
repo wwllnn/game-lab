@@ -1,0 +1,269 @@
+.word-card {
+  padding-bottom: 0;
+}
+
+.word-stats .stat {
+  text-align: center;
+}
+
+.word-stats .word-status {
+  font-size: 14px;
+  letter-spacing: 0.04em;
+}
+
+.word-board-section {
+  margin: 0 29px;
+  padding-bottom: 25px;
+}
+
+.word-grid {
+  display: grid;
+  gap: 7px;
+  width: min(100%, calc(var(--word-length) * 57px + (var(--word-length) - 1) * 7px));
+  margin: 20px auto 0;
+}
+
+.word-row {
+  display: grid;
+  grid-template-columns: repeat(var(--word-length), minmax(0, 1fr));
+  gap: 7px;
+}
+
+.word-tile {
+  width: 100%;
+  min-width: 0;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--line);
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--ink);
+  font:
+    800 clamp(16px, 4vw, 27px)/1 'Space Grotesk',
+    sans-serif;
+}
+
+.word-tile.filled {
+  border-color: #b9c5bb;
+}
+
+.word-tile.scored {
+  color: white;
+  border-color: transparent;
+  animation: word-flip 650ms ease-in-out var(--tile-delay) both;
+}
+
+.word-tile.correct,
+.word-key.correct {
+  background: #568d70;
+  color: white;
+}
+
+.word-tile.present,
+.word-key.present {
+  background: #dda44e;
+  color: white;
+}
+
+.word-tile.absent,
+.word-key.absent {
+  background: #8c958f;
+  color: white;
+}
+
+.word-message {
+  min-height: 20px;
+  margin: 17px auto 12px;
+  color: var(--muted);
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.word-keyboard {
+  display: grid;
+  gap: 6px;
+  max-width: 570px;
+  margin: 0 auto;
+}
+
+.word-keyboard-row {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.word-key {
+  flex: 1;
+  min-width: 0;
+  height: 47px;
+  border: 0;
+  border-radius: 5px;
+  background: var(--soft);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 800;
+  transition:
+    background 0.15s,
+    transform 0.15s;
+}
+
+.word-key:hover {
+  transform: translateY(-2px);
+  background: #e2e8dc;
+}
+
+.word-key.correct:hover {
+  background: #568d70;
+}
+.word-key.present:hover {
+  background: #dda44e;
+}
+.word-key.absent:hover {
+  background: #8c958f;
+}
+
+.word-key.wide {
+  flex: 1.5;
+  font-size: 11px;
+}
+
+.word-card-bottom {
+  border-top: 1px solid var(--line);
+  padding: 14px 29px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.word-card-bottom > span {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.word-card-bottom .control-button {
+  margin: 0;
+}
+
+.word-bank {
+  padding: 19px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.word-bank summary {
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.word-bank summary span {
+  float: right;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.word-bank-content {
+  padding-top: 15px;
+}
+
+.sidebar .word-bank p {
+  max-width: none;
+  margin-bottom: 15px;
+  color: var(--muted);
+}
+
+.word-bank label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.word-bank input {
+  width: 100%;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 12px;
+}
+
+.word-bank input:focus-visible,
+.word-bank summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+
+.word-bank-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5px 8px;
+  max-height: 210px;
+  margin-top: 13px;
+  overflow-y: auto;
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.word-bank-empty {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  text-transform: none;
+}
+
+@keyframes word-flip {
+  0% {
+    transform: rotateX(0);
+  }
+  50% {
+    transform: rotateX(90deg);
+  }
+  100% {
+    transform: rotateX(0);
+  }
+}
+
+@media (max-width: 620px) {
+  .word-board-section {
+    margin: 0 13px;
+    padding-bottom: 20px;
+  }
+  .word-grid {
+    gap: 5px;
+    margin-top: 18px;
+  }
+  .word-row {
+    gap: 5px;
+  }
+  .word-keyboard-row {
+    gap: 3px;
+  }
+  .word-key {
+    height: 44px;
+    font-size: 11px;
+  }
+  .word-key.wide {
+    font-size: 9px;
+  }
+  .word-card-bottom {
+    padding: 13px 18px;
+  }
+  .word-card-bottom > span {
+    display: none;
+  }
+  .word-stats .word-status {
+    font-size: 10px;
+  }
+}

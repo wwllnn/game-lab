@@ -1,0 +1,430 @@
+/* Minesweeper board, controls, and mine-wave animations. */
+
+.board-section {
+  margin: 0 29px;
+}
+
+.board-scroll {
+  overflow: auto;
+  background: var(--board);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  justify-content: flex-start;
+  scrollbar-width: thin;
+}
+
+.board {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--columns), var(--cell-size));
+  grid-auto-rows: var(--cell-size);
+  gap: 3px;
+  --cell-size: clamp(33px, 4.25vw, 46px);
+  width: max-content;
+  margin-inline: auto;
+  overflow: hidden;
+  overflow: clip;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.board-intermediate {
+  --cell-size: 33px;
+}
+
+.board-expert {
+  --cell-size: 29px;
+}
+
+.cell {
+  position: relative;
+  width: var(--cell-size);
+  height: var(--cell-size);
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid #dce4d9;
+  background: var(--surface);
+  border-radius: 5px;
+  color: var(--ink);
+  font:
+    800 calc(var(--cell-size) * 0.46)/1 'Space Grotesk',
+    sans-serif;
+  box-shadow: 0 2px 0 #d7ded3;
+  transition:
+    background 0.1s,
+    transform 0.1s,
+    box-shadow 0.1s;
+}
+
+.dark .cell {
+  border-color: #42594b;
+  box-shadow: 0 2px 0 #1c2b20;
+}
+
+.cell:hover:not(.revealed):not(.flagged) {
+  background: #fff0dc;
+  transform: translateY(-1px);
+}
+
+.cell:active:not(.revealed) {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+.cell.revealed {
+  background: transparent;
+  box-shadow: none;
+  border-color: #d9e3d7;
+}
+
+.dark .cell.revealed {
+  border-color: #415749;
+}
+
+.cell.flagged {
+  color: var(--accent);
+}
+
+.cell.mine {
+  background: #e9e1db;
+}
+
+.cell.exploded {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.cell.wrong-flag {
+  color: #c24a39;
+  font-size: 27px;
+}
+
+.mine-shape {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: currentColor;
+  position: relative;
+}
+
+.mine-shape:before,
+.mine-shape:after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 23px;
+  height: 3px;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+}
+
+.mine-shape:after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.cell.number-1 {
+  color: #3e74ab;
+}
+
+.cell.number-2 {
+  color: #52855c;
+}
+
+.cell.number-3 {
+  color: #d6704f;
+}
+
+.cell.number-4 {
+  color: #7960a9;
+}
+
+.cell.number-5 {
+  color: #ad534b;
+}
+
+.cell.number-6 {
+  color: #348c94;
+}
+
+.cell.number-7 {
+  color: #555c5b;
+}
+
+.cell.number-8 {
+  color: #9b7861;
+}
+
+.cell.mine,
+.cell.exploded {
+  color: #302c28;
+}
+
+.cell.exploded {
+  color: white;
+}
+
+.board-paused > .cell {
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+.pause-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  background: #f3f6efb8;
+  z-index: 2;
+  color: #24392c;
+}
+
+.pause-overlay strong {
+  font:
+    700 20px 'Space Grotesk',
+    sans-serif;
+}
+
+.pause-overlay span {
+  font-size: 12px;
+}
+
+.board-bottom {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 14px 0 22px;
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.progress-track {
+  height: 5px;
+  border-radius: 8px;
+  background: var(--soft);
+  flex: 1;
+  overflow: hidden;
+}
+
+.progress-track span {
+  display: block;
+  height: 100%;
+  background: var(--green);
+  border-radius: 8px;
+  transition: width 0.3s;
+}
+
+.controls-row {
+  border-top: 1px solid var(--line);
+  padding: 15px 29px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.control-switch {
+  display: flex;
+  align-items: center;
+  width: 27px;
+  height: 16px;
+  border-radius: 10px;
+  background: #d5dbd2;
+  padding: 2px;
+  margin-left: 4px;
+}
+
+.control-switch span {
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+.selected .control-switch {
+  background: var(--accent);
+}
+
+.selected .control-switch span {
+  transform: translateX(11px);
+}
+
+@media (max-width: 900px) {
+  .board {
+      --cell-size: clamp(32px, 5vw, 44px);
+    }
+}
+
+@media (max-width: 620px) {
+  .board-section {
+      margin: 0 14px;
+    }
+  .board-scroll {
+      padding: 8px;
+      width: 100%;
+    }
+  .board {
+      --cell-size: min(8vw, 33px);
+      gap: 2px;
+      flex: none;
+    }
+  .board-intermediate {
+      --cell-size: 32px;
+    }
+  .board-expert {
+      --cell-size: 29px;
+    }
+  .controls-row {
+      padding: 13px 18px;
+    }
+  .board-scroll {
+      min-width: 0;
+    }
+}
+
+.board .cell:focus-visible {
+  outline-offset: -3px;
+}
+
+.cell.flagged:not(.mine):not(.wrong-flag) {
+  color: var(--accent);
+}
+
+.cell.chain-mine {
+  z-index: 1;
+  animation: mine-cell-burst 550ms ease-out var(--mine-delay) both;
+}
+
+.cell.chain-mine.exploded {
+  animation-name: mine-origin-burst;
+}
+
+.cell.chain-mine .mine-shape {
+  opacity: 0;
+  animation: mine-icon-burst 550ms ease-out var(--mine-delay) both;
+}
+
+.cell.chain-mine::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  animation: mine-ring-burst 550ms ease-out var(--mine-delay) both;
+}
+
+.mine-shockwave {
+  position: absolute;
+  z-index: 2;
+  width: var(--cell-size);
+  height: var(--cell-size);
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: board-shockwave 1400ms ease-out both;
+}
+
+@keyframes mine-cell-burst {
+  0% {
+    background: var(--surface);
+    border-color: var(--line);
+    box-shadow: 0 2px 0 #d7ded3;
+  }
+  35% {
+    background: #ff9a70;
+    border-color: #f16b4c;
+    box-shadow: 0 0 0 5px #f16b4c44;
+  }
+  70% {
+    background: #ffd3ae;
+    box-shadow: 0 0 0 9px #f16b4c00;
+  }
+  100% {
+    background: #e9e1db;
+    border-color: var(--line);
+    box-shadow: none;
+  }
+}
+
+@keyframes mine-origin-burst {
+  0% {
+    background: var(--surface);
+    border-color: var(--line);
+    box-shadow: 0 2px 0 #d7ded3;
+  }
+  35% {
+    background: #ffb047;
+    border-color: #ffb047;
+    box-shadow: 0 0 0 8px #ffb04755;
+  }
+  70% {
+    background: #ff8158;
+    box-shadow: 0 0 0 13px #ff815800;
+  }
+  100% {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: none;
+  }
+}
+
+@keyframes mine-icon-burst {
+  0% {
+    opacity: 0;
+    transform: scale(0.2) rotate(-35deg);
+  }
+  35% {
+    opacity: 1;
+    transform: scale(1.5) rotate(15deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+@keyframes mine-ring-burst {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  35% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.9);
+  }
+}
+
+@keyframes board-shockwave {
+  0% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(0.25);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(var(--wave-scale));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cell.chain-mine .mine-shape {
+      opacity: 1;
+    }
+  .mine-shockwave {
+      display: none;
+    }
+}

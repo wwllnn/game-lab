@@ -1,0 +1,172 @@
+.sudoku-play {
+  padding: 0 28px 12px;
+}
+
+.sudoku-board {
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  width: 100%;
+  max-width: 486px;
+  margin: 16px auto;
+  border: 2px solid var(--ink);
+  border-radius: 5px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.sudoku-cell {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--green);
+  font: 500 clamp(20px, 3vw, 29px) 'Space Grotesk', sans-serif;
+}
+
+.sudoku-cell:nth-child(3n) {
+  border-right: 2px solid var(--ink);
+}
+
+.sudoku-cell:nth-child(9n) {
+  border-right: 0;
+}
+
+.sudoku-cell:nth-child(n + 19):nth-child(-n + 27), .sudoku-cell:nth-child(n + 46):nth-child(-n + 54) {
+  border-bottom: 2px solid var(--ink);
+}
+
+.sudoku-cell:nth-child(n + 73) {
+  border-bottom: 0;
+}
+
+.sudoku-cell.given {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.sudoku-cell.related {
+  background: var(--soft);
+}
+
+.sudoku-cell.matching {
+  background: color-mix(in srgb, var(--green) 19%, var(--surface));
+}
+
+.sudoku-cell.conflict {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+}
+
+.sudoku-cell.chosen {
+  background: color-mix(in srgb, var(--green) 27%, var(--surface));
+  box-shadow: inset 0 0 0 2px var(--green);
+}
+
+.sudoku-cell:focus-visible {
+  outline-offset: -4px;
+  z-index: 1;
+}
+
+.sudoku-notes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  height: 100%;
+  padding: 3px;
+  font: 500 clamp(8px, 1.5vw, 12px) 'DM Sans', sans-serif;
+  color: var(--muted);
+}
+
+.sudoku-notes span {
+  display: grid;
+  place-items: center;
+}
+
+.sudoku-number-pad {
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  gap: 5px;
+  max-width: 486px;
+  margin: 20px auto 14px;
+}
+
+.sudoku-number-pad button {
+  min-height: 46px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  color: var(--ink);
+  background: var(--soft);
+  font: 600 23px 'Space Grotesk', sans-serif;
+}
+
+.sudoku-number-pad button:hover:enabled, .sudoku-tools button:hover:enabled {
+  border-color: var(--green);
+  background: var(--board);
+}
+
+.sudoku-tools {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+  max-width: 486px;
+  margin: auto;
+}
+
+.sudoku-tools button {
+  min-height: 42px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.sudoku-tools button[aria-pressed='true'] {
+  color: var(--green);
+  border-color: var(--green);
+  background: var(--soft);
+}
+
+.sudoku-game button:disabled {
+  opacity: .4;
+  cursor: default;
+}
+
+.sudoku-message {
+  min-height: 36px;
+  margin: 16px auto 6px;
+  max-width: 486px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+@media (max-width: 620px) {
+  .sudoku-play {
+    padding: 0 14px 10px;
+  }
+  .sudoku-game .board-meta {
+    font-size: 8px;
+  }
+  .sudoku-number-pad {
+    gap: 3px;
+  }
+  .sudoku-number-pad button {
+    min-height: 40px;
+    font-size: 21px;
+  }
+  .sudoku-tools {
+    gap: 4px;
+  }
+  .sudoku-tools button {
+    font-size: 11px;
+  }
+}
